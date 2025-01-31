@@ -8,9 +8,9 @@ from PyQt5.QtCore import Qt
 class ClimaApp(QWidget):
     def __init__(self):
         super().__init__()
-        self.cidade_label = QLabel("Entre com o nome da cidade: ", self)
+        self.cidade_label = QLabel("Entre com o nome da cidade: \n(Digite o nome da cidade em Inglês)", self)
         self.cidade_input = QLineEdit(self)
-        self.botao = QPushButton("Pegar o Clima", self)
+        self.botao = QPushButton("Buscar o Clima", self)
         self.temperatura_label = QLabel(self)
         self.emoji_label = QLabel(self)
         self.descricao_label = QLabel(self)
@@ -110,7 +110,7 @@ class ClimaApp(QWidget):
         except requests.exceptions.Timeout:
             self.mostrar_erros("Timeout Error\nA solicitação expirou ")
         except requests.exceptions.TooManyRedirects:
-            self.mostrar_erros("Too Many Redirects\n Cheuqe a URL")
+            self.mostrar_erros("Too Many Redirects\n Cheque a URL")
         except requests.exceptions.RequestException as req_erro:
             self.mostrar_erros(f"Request Error\n{req_erro}")
 
@@ -159,20 +159,116 @@ class ClimaApp(QWidget):
     
     @staticmethod
     def tradutor_clima_descricao(clima_descricao):
-        if clima_descricao == "thunderstorm with rain" or "thunderstorm with light rain" or "thunderstorm with heavy rain" or "light thunderstorm" or "thunderstorm" or "heavy thunderstorm" or "ragged thunderstorm" or "thunderstorm with light drizzle" or "thunderstorm with drizzle" or "thunderstorm with heavy drizzle":
+        if clima_descricao == "thunderstorm with rain":
+            return "Tempestade com chuva"
+        elif clima_descricao == "thunderstorm with light rain":
+            return "Tempestade com chuva leve"
+        elif clima_descricao == "thunderstorm with heavy rain":
+            return "Tempestade com chuva pesada"
+        elif clima_descricao == "light thunderstorm":
+            return "Tempestade Leve"
+        elif clima_descricao == "thunderstorm":
             return "Tempestade"
+        elif clima_descricao == "heavy thunderstorm":
+            return "Tempestade Pesada"
+        elif clima_descricao == "ragged thunderstorm":
+            return "Tempestade Irregular"
+        elif clima_descricao == "thunderstorm with light drizzle":
+            return "Trovoada com leve garoa"
+        elif clima_descricao == "thunderstorm with drizzle":
+            return "Trovoada com garoa"
+        elif clima_descricao == "thunderstorm with heavy drizzle":
+            return "Trovoada com forte garoa"
         elif clima_descricao == "clear sky":
             return "Céu Limpo"
-        elif clima_descricao == "broken clouds" or "few clouds" or "scattered clouds" or "overcast clouds":
-            return "Nublado"
-        elif clima_descricao == "light intensity drizzle" or "drizzle" or "heavy intensity drizzle" or "light intensity drizzle rain" or "drizzle rain" or "heavy intensity drizzle rain" or "	shower rain and drizzle" or "	heavy shower rain and drizzle" or "shower drizzle":
-            return "Chuviscando"
-        elif clima_descricao == "light rain" or "moderate rain" or "heavy intensity rain" or "very heavy rain" or "extreme rain" or "freezing rain" or "light intensity shower rain" or "shower rain" or "heavy intensity shower rain" or "ragged shower rain":
-            return "Chovendo"
-        elif clima_descricao == "light snow" or "snow" or "heavy snow" or "sleet" or "	light shower sleet" or "shower sleet" or "light rain and snow" or "rain and snow" or "	light shower snow" or "shower snow" or "heavy shower snow":
-            return "Nevando"
+        elif clima_descricao == "few clouds":
+            return "Poucas Nuvens"
+        elif clima_descricao == "broken clouds":
+            return "Nuvens Quebradas"
+        elif clima_descricao == "scattered clouds":
+            return "nuvens dispersas"
+        elif clima_descricao == "overcast clouds":
+            return "Nuvens nubladas"
+        elif clima_descricao == "light intensity drizzle":
+            return "Chuvisco de baixa intensidade"
+        elif clima_descricao == "heavy intensity drizzle":
+            return "Chuvisco de alta intensidade"
+        elif clima_descricao == "light intensity drizzle rain":
+            return "Chuva de chuvisco de baixa intensidade"
+        elif clima_descricao == "drizzle rain":
+            return "Chuva de chuvisco"
+        elif clima_descricao == "heavy intensity drizzle rain":
+            return "Chuva de chuvisco de alta intensidade"
+        elif clima_descricao == "shower rain and drizzle":
+            return "Pancada de chuva e chuvisco"
+        elif clima_descricao == "heavy shower rain and drizzle":
+            return "Pancada de chuva forte e chuvisco"
+        elif clima_descricao == "shower drizzle":
+            return "Pancada de chuvisco"
+        elif clima_descricao == "light rain":
+            return "Chuva leve"
+        elif clima_descricao == "moderate rain":
+            return "Chuva moderada"
+        elif clima_descricao == "heavy intensity rain":
+            return "Chuva forte"
+        elif clima_descricao == "very heavy rain":
+            return "Chuva muito forte"
+        elif clima_descricao == "extreme rain":
+            return "Chuva extrema"
+        elif clima_descricao == "freezing rain":
+            return "Chuva congelante"
+        elif clima_descricao == "light intensity shower rain":
+            return "Pancada de chuva fraca"
+        elif clima_descricao == "shower rain":
+            return "Pancada de chuva"
+        elif clima_descricao == "heavy intensity shower rain":
+            return "Pancada de chuva intensa"
+        elif clima_descricao == "ragged shower rain":
+            return "Pancada de chuva irregular"
+        elif clima_descricao == "light snow":
+            return "Neve leve"
+        elif clima_descricao == "snow":
+            return "Neve"
+        elif clima_descricao == "heavy snow":
+            return "Neve intensa"
+        elif clima_descricao == "sleet":
+            return "Chuva misturada com neve"
+        elif clima_descricao == "light shower sleet":
+            return "Pancada leve de chuva e neve"
+        elif clima_descricao == "shower sleet":
+            return "Pancada de chuva e neve"
+        elif clima_descricao == "light rain and snow":
+            return "Chuva leve e neve"
+        elif clima_descricao == "rain and snow":
+            return "Chuva e neve"
+        elif clima_descricao == "light shower snow":
+            return "Pancada leve de neve"
+        elif clima_descricao == "shower snow":
+            return "Pancada de neve"
+        elif clima_descricao == "heavy shower snow":
+            return "Pancada intensa de neve"
+        elif clima_descricao == "mist":
+            return "Névoa"
+        elif clima_descricao == "smoke":
+            return "Fumaça"
+        elif clima_descricao == "haze":
+            return "Neblina"
+        elif clima_descricao == "sand/dust whirls":
+            return "Redemoinhos de areia/poeira"
+        elif clima_descricao == "fog":
+            return "Nevoeiro"
+        elif clima_descricao == "sand":
+            return "Areia"
+        elif clima_descricao == "dust":
+            return "Poeira"
+        elif clima_descricao == "volcanic ash":
+            return "Cinza vulcânica"
+        elif clima_descricao == "squalls":
+            return "Rajadas de vento"
+        elif clima_descricao == "tornado":
+            return "Tornado"
         else:
-            return "Qualquer Clima"
+            return "Esse Clima não foi identificado"
  
 
 
